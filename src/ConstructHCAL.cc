@@ -54,8 +54,9 @@
 
 void DetectorConstruction::ConstructHCAL()
 {
+	std::cout<<"Starting to construct HCAL"<<std::endl;
 	G4double ecal_length = 300.*mm;
-	if(config->conf["ECAL"]["build"].as<bool>())ecal_length = 0.;
+	if(!config->conf["ECAL"]["build"].as<bool>())ecal_length = 0.;
   G4Material* iron =
     G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe");
   G4Material* PSD =

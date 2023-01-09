@@ -55,7 +55,7 @@
 void DetectorConstruction::ConstructECAL()
 {
     G4bool checkOverlaps = false;
-	
+	std::cout<<"Starting to construct ECAL"<<std::endl;
     //
     // define a material
     //   
