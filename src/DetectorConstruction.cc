@@ -72,8 +72,14 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     visAttributes -> SetVisibility(false);
 
 	physiWorld = ConstructWorld();
-	if(config->conf["ECAL"]["build"].as<bool>())ConstructECAL();
-	if(config->conf["HCAL"]["build"].as<bool>())ConstructHCAL();
+	if(config->conf["ECAL"]["build"].as<bool>())
+	{
+		ConstructECAL();
+	}
+	if(config->conf["HCAL"]["build"].as<bool>())
+	{
+		ConstructHCAL();
+	}
     //logicAbsorber ->SetVisAttributes(visAttributes);
     //(0.9,0.9,0.0)yellow
 
