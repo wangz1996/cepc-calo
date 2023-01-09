@@ -31,6 +31,7 @@
 *.out
 *.app
 *.root
+*.swp
 
 # Compile folder
 /build
