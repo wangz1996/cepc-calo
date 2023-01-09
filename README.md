@@ -3,6 +3,7 @@ Simulation Framework for CEPC calorimeters
 
 ## Contact
 Zhen Wang < wangz1996@sjtu.edu.cn >
+Zixun Xu < xuzixun1116@163.com >
 
 ## Environment
 Use cvmfs
