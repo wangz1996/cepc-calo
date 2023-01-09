@@ -80,8 +80,8 @@ int Config::Run()
 	G4String command = "/control/execute ";
 
 	UI->ApplyCommand(G4String("/control/verbose ")+G4String(conf["Verbose"]["control"].as<std::string>()));
-	UI->ApplyCommand(G4String("/control/verbose ")+G4String(conf["Verbose"]["tracking"].as<std::string>()));
-	UI->ApplyCommand(G4String("/control/verbose ")+G4String(conf["Verbose"]["event"].as<std::string>()));
+	UI->ApplyCommand(G4String("/tracking/verbose ")+G4String(conf["Verbose"]["tracking"].as<std::string>()));
+	UI->ApplyCommand(G4String("/event/verbose ")+G4String(conf["Verbose"]["event"].as<std::string>()));
 	//Initialize G4 kernel
 	runManager->Initialize();
 

@@ -106,7 +106,7 @@ void EventAction::AddEcalHit(const G4int &copyNo,const G4double &edep,const G4do
 /////////////////////////////////
 	
 	int layer=copyNo/210;
-	std::cout<<copyNo<<" "<<layer<<std::endl;
+	//std::cout<<copyNo<<" "<<layer<<std::endl;
 	int m=(copyNo%210)/42;
 	int n=(copyNo%210)%42;
 	double x=0.;

@@ -87,7 +87,11 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
   // collect energy and track length step by step
   //std::cout<<volumeName<<" "<<int(volumeName=="ecal_crystal")<<" "<<edep<<std::endl;
   if(volumeName=="ecal_crystal") {  fEventAction_Step->AddEcalHit(copyNo,edep,time,pdgid,trackid); }
-  if(volumeName=="hcal_psd") {  fEventAction_Step->AddHcalHit(copyNo,edep,time,pdgid,trackid); }
+  if(volumeName=="hcal_psd") 
+	{ 
+		 //std::cout<<copyNo<<" pdg: "<<pdgid<<" track: "<<trackid<<" edep: "<<edep<<std::endl;
+		 fEventAction_Step->AddHcalHit(copyNo,edep,time,pdgid,trackid); 
+	}
 }
  
 void SteppingAction::Reset()
