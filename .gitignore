@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+*.root
+
+# Compile folder
+/build
+/share
+
+# Runtime folder
+/run
