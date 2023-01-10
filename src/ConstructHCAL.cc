@@ -64,31 +64,45 @@ void DetectorConstruction::ConstructHCAL()
 	//std::cout<<"GetNuclearInterLength "<<PSD->GetNuclearInterLength()<<std::endl;
   G4Material* kevlar =
     G4NistManager::Instance()->FindOrBuildMaterial("G4_KAPTON");
+  G4double absorberZ0 = 2*mm;
   G4double crystalXY = 4*cm;
   G4double crystalZ = 3*mm;
-  G4double crystalPositionZ = (ecal_length + crystalZ/2.)*mm;
+  G4double crystalPositionZ = (ecal_length + absorberZ0 + crystalZ/2.)*mm;
   G4double PCBXY = 72*cm;
   G4double PCBZ = 2*mm;
   G4double absorberXY = PCBXY;
   G4double absorberZ = 20.*mm;
-  G4double absorberPositionZ=(ecal_length + crystalZ+PCBZ+absorberZ/2.)*mm;
+  G4double absorberPositionZ=(ecal_length + absorberZ0 + crystalZ+PCBZ+absorberZ/2.)*mm;
   G4double absorberGapZ = (absorberZ+crystalZ+PCBZ)*mm;
   G4double crystalGapZ = absorberGapZ;
   G4double PCBGapZ = absorberGapZ;
-  G4double PCBPositionZ = (ecal_length + crystalZ+PCBZ/2.)*mm;
+  G4double PCBPositionZ = (ecal_length + absorberZ0 +  crystalZ+PCBZ/2.)*mm;
   G4int nLayer = 40;
 	bool checkOverlap = false;
- // Absorber layer 
+ // Absorber layer
   G4Box*
     solidAbsorber = new G4Box("hcal_absorber",                                                  // its name
 			     0.5*absorberXY, 0.5*absorberXY, 0.5*absorberZ);        // its size
-  
+  G4Box*
+    solidAbsorber0 = new G4Box("hcal_absorber0",                                                  // its name
+                0.5*absorberXY, 0.5*absorberXY, 0.5*absorberZ0); 
   G4LogicalVolume* 
     logicAbsorber = new G4LogicalVolume(solidAbsorber,                                       // its solid
 					iron,                                           // its material
                     "hcal_absorber");                                          // its name 
-  
+  G4LogicalVolume*
+    logicAbsorber0 = new G4LogicalVolume(solidAbsorber0,                                       // its solid
+                iron,                                             // its material
+                "hcal_absorber0"); 
   G4VPhysicalVolume* physiAbsorber;
+  physiAbsorber=new G4PVPlacement(0,
+            	G4ThreeVector(0,0,absorberZ0/2.),
+            	logicAbsorber0,
+            	"hcal_absorber0",
+            	logicWorld,
+            	false,
+            	-1,
+            	checkOverlap);
   for(G4int i_Layer=0; i_Layer<nLayer; ++i_Layer){
     physiAbsorber = new G4PVPlacement(0,                                                    // no rotation
 				      G4ThreeVector(0,0, (absorberPositionZ+i_Layer*absorberGapZ)),                              // at (0,0,0)
