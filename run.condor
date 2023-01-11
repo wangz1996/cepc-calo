@@ -1,0 +1,7 @@
+Executable = run.sh
+Universe = vanilla
+getenv = TRUE
+Error= err.txt
+#Log = log.txt
+#Output = output.txt
+Queue

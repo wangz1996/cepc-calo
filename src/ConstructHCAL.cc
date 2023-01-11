@@ -72,6 +72,7 @@ void DetectorConstruction::ConstructHCAL()
   G4double PCBZ = 2*mm;
   G4double absorberXY = PCBXY;
   G4double absorberZ = 20.*mm;
+  G4double absorberPositionZ0=(ecal_length + absorberZ0/2.)*mm;
   G4double absorberPositionZ=(ecal_length + absorberZ0 + crystalZ+PCBZ+absorberZ/2.)*mm;
   G4double absorberGapZ = (absorberZ+crystalZ+PCBZ)*mm;
   G4double crystalGapZ = absorberGapZ;
@@ -96,7 +97,7 @@ void DetectorConstruction::ConstructHCAL()
                 "hcal_absorber0"); 
   G4VPhysicalVolume* physiAbsorber;
   physiAbsorber=new G4PVPlacement(0,
-            	G4ThreeVector(0,0,absorberZ0/2.),
+            	G4ThreeVector(0,0,absorberPositionZ0),
             	logicAbsorber0,
             	"hcal_absorber0",
             	logicWorld,

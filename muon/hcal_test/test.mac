@@ -1,0 +1,12 @@
+#/generator/generator particleGun
+/mydet/generator fGParticleSource
+/control/verbose 0
+/tracking/verbose 0
+/event/verbose 0
+#/gps/particle e+
+#/gps/particle pi+
+/gps/particle mu+
+/gps/position 2 2 -0. cm
+/gps/direction 0. 0. 1.
+/gps/energy 3 GeV
+/run/beamOn 1000000
