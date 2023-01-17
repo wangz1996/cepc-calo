@@ -103,7 +103,7 @@ void DetectorConstruction::ConstructECAL()
     G4int LayerNo = 30;
     G4int crystalNoX = 42;
     G4int crystalNoY = 5;
-    G4double absorberZ0=2*mm;
+    G4double absorberZ0=0*mm;
     G4double crystalX = 5*mm;
     G4double crystalY = 45*mm;
     G4double crystalZ = 2*mm;
@@ -141,7 +141,7 @@ void DetectorConstruction::ConstructECAL()
     //******************************************************
     //******************************************************
     //Absorber
-    G4Box*
+/*    G4Box*
 	solidAbsorber0 = new G4Box("ecal_absorber0",                                                  // its name
                 0.5*absorberXY, 0.5*absorberXY, 0.5*absorberZ0);
     G4LogicalVolume*
@@ -156,7 +156,7 @@ void DetectorConstruction::ConstructECAL()
 	    false,
 	    -1,
 	    checkOverlaps);
-
+*/
 
     G4Box*
         solidAbsorber = new G4Box("ecal_absorber",                                                  // its name
