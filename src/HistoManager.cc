@@ -35,8 +35,8 @@
 #include <TFile.h>
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-HistoManager::HistoManager(const char *foutname)
-  :fRootFile(0),fNtuple(0)
+HistoManager::HistoManager(const char *foutname,const bool &savegeo)
+  :fRootFile(0),fNtuple(0),fSaveGeo(savegeo)
 {
 	fOutName = foutname;
 }
@@ -63,6 +63,11 @@ void HistoManager::book()
   fNtuple->Branch("ecal_y",              &fParticleInfo.fecal_y);
   fNtuple->Branch("ecal_z",              &fParticleInfo.fecal_z);
   fNtuple->Branch("ecal_time",               &fParticleInfo.fecal_time);
+  fNtuple->Branch("ecal_cellid",               &fParticleInfo.fecal_cellid);
+  fNtuple->Branch("ecal_celle",               &fParticleInfo.fecal_celle);
+  fNtuple->Branch("ecal_cellx",               &fParticleInfo.fecal_cellx);
+  fNtuple->Branch("ecal_celly",               &fParticleInfo.fecal_celly);
+  fNtuple->Branch("ecal_cellz",               &fParticleInfo.fecal_cellz);
 
   fNtuple->Branch("hcal_psdid",              &fParticleInfo.fhcal_psdid);
   fNtuple->Branch("hcal_energy",              &fParticleInfo.fhcal_energy);
@@ -72,16 +77,24 @@ void HistoManager::book()
   fNtuple->Branch("hcal_y",              &fParticleInfo.fhcal_y);
   fNtuple->Branch("hcal_z",              &fParticleInfo.fhcal_z);
   fNtuple->Branch("hcal_time",               &fParticleInfo.fhcal_time);
+  fNtuple->Branch("hcal_cellid",               &fParticleInfo.fhcal_cellid);
+  fNtuple->Branch("hcal_celle",               &fParticleInfo.fhcal_celle);
+  fNtuple->Branch("hcal_cellx",               &fParticleInfo.fhcal_cellx);
+  fNtuple->Branch("hcal_celly",               &fParticleInfo.fhcal_celly);
+  fNtuple->Branch("hcal_cellz",               &fParticleInfo.fhcal_cellz);
 }
 
 void HistoManager::save()
 {
-  gSystem->Load("libGeom");
-  TGeoManager::Import("cepc-calo.gdml");
-  fNtuple->Write("",TObject::kOverwrite);
-  gGeoManager->Write("cepc_calo");
-  fRootFile->Close();
-  std::remove("cepc-calo.gdml");
-  G4cout<<"------>close rootfile"<<G4endl;
+	if(fSaveGeo)
+	{
+		gSystem->Load("libGeom");
+		TGeoManager::Import("cepc-calo.gdml");
+		gGeoManager->Write("cepc_calo");
+		std::remove("cepc-calo.gdml");
+	}
+	fNtuple->Write("",TObject::kOverwrite);
+	fRootFile->Close();
+	G4cout<<"------>close rootfile"<<G4endl;
 }
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
