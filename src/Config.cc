@@ -51,14 +51,17 @@ int Config::Run()
 	// set mandatory initialization classes
 	//
 	DetectorConstruction* detector = new DetectorConstruction(this);
-	G4GDMLParser parser;
-	parser.Write("cepc-calo.gdml",detector->Construct());
+	if(conf["Global"]["savegeo"].as<bool>())
+	{
+		G4GDMLParser parser;
+		parser.Write("cepc-calo.gdml",detector->Construct());
+	}
 	runManager->SetUserInitialization(detector);
 
 	G4VUserPhysicsList* physics = new QGSP_BERT();
 	runManager->SetUserInitialization(physics);
 
-	HistoManager* histo = new HistoManager(conf["Global"]["output"].as<std::string>().c_str());
+	HistoManager* histo = new HistoManager(conf["Global"]["output"].as<std::string>().c_str(),conf["Global"]["savegeo"].as<bool>());
 	//SteppingVerbose* stepV = new SteppingVerbose();
 
 	PrimaryGeneratorAction* primary = new PrimaryGeneratorAction(detector, histo,this);
@@ -89,6 +92,7 @@ int Config::Run()
 	// job termination
 	//
 	delete runManager;
+	if(access("cepc-calo.gdml",F_OK) == 0)std::remove("cepc-calo.gdml");
 
 	return 1;
 }
@@ -109,6 +113,7 @@ void Config::Print()
 	fout<<"\n"<<endl;
 	fout<<"        output: ./test.root # Output root file name"<<endl;
 	fout<<"        beamon: 100"<<endl;
+	fout<<"        savegeo: False"<<endl;
 	fout<<"#Construct Calorimeter"<<endl;
 	fout<<"ECAL:"<<endl;
 	fout<<"        build: True"<<endl;
