@@ -76,12 +76,15 @@ void DetectorConstruction::ConstructECAL()
     G4Material* tungsten =
         G4NistManager::Instance()->FindOrBuildMaterial("G4_W");
 
-     G4Element* elW = 
+    G4Material* iron =
+    	G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe");
+     
+    G4Element* elW = 
         G4NistManager::Instance()->FindOrBuildElement("W");
 
     G4Element* elCu = 
         G4NistManager::Instance()->FindOrBuildElement("Cu");
-
+	
      G4double density;
      G4String name;
      G4int ncomponents;
@@ -100,6 +103,7 @@ void DetectorConstruction::ConstructECAL()
     G4int LayerNo = 30;
     G4int crystalNoX = 42;
     G4int crystalNoY = 5;
+    G4double absorberZ0=0*mm;
     G4double crystalX = 5*mm;
     G4double crystalY = 45*mm;
     G4double crystalZ = 2*mm;
@@ -116,16 +120,16 @@ void DetectorConstruction::ConstructECAL()
 //    G4double crystal_pcbGap = 0*mm;
 //    G4double pcb_absorberGap = 0*mm;
 
-    G4double absorberPositionZ1 = (crystalZ + PCBZ + absorberZ/2.);
-    G4double absorberPositionZ2 = (crystalZ + PCBZ + absorberZ + PCBZ + crystalZ + crystal_pcbGap + absorberZ/2.);
+    G4double absorberPositionZ1 = (absorberZ0 + crystalZ + PCBZ + absorberZ/2.);
+    G4double absorberPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + PCBZ + crystalZ + crystal_pcbGap + absorberZ/2.);
     G4double crystalPositionX = -(crystalNoX-1)*(crystalX+crystalGapX)/2.;
     G4double crystalPositionY = -(crystalNoY-1)*(crystalY+crystalGapY)/2.;
-    G4double crystalPositionZ1 = (crystalZ/2.);
-    G4double PCBPositionZ1 = (crystalZ + PCBZ/2.);
+    G4double crystalPositionZ1 = (absorberZ0 + crystalZ/2.);
+    G4double PCBPositionZ1 = (absorberZ0 + crystalZ + PCBZ/2.);
     //G4double PCBPositionZ2 = (crystalZ + PCBZ + absorberZ + PCBZ/2.);
     //G4double crystalPositionZ2 = (crystalZ + PCBZ + absorberZ + crystal_pcbGap + PCBZ + crystalZ/2.);
-    G4double PCBPositionZ2 = (crystalZ + PCBZ + absorberZ + crystal_pcbGap + crystalZ + PCBZ/2.);
-    G4double crystalPositionZ2 = (crystalZ + PCBZ + absorberZ + crystal_pcbGap + crystalZ/2.);
+    G4double PCBPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + crystal_pcbGap + crystalZ + PCBZ/2.);
+    G4double crystalPositionZ2 = (absorberZ0 + crystalZ + PCBZ + absorberZ + crystal_pcbGap + crystalZ/2.);
     //G4double crystalPositionZ2 = (crystalZ/2. + crystal_pcbGap - absorber_crystalGap);
     //G4double PCBPositionZ2 = (PCBZ/2. + crystalZ + pcb_absorberGap - absorber_crystalGap);
 
@@ -137,6 +141,23 @@ void DetectorConstruction::ConstructECAL()
     //******************************************************
     //******************************************************
     //Absorber
+/*    G4Box*
+	solidAbsorber0 = new G4Box("ecal_absorber0",                                                  // its name
+                0.5*absorberXY, 0.5*absorberXY, 0.5*absorberZ0);
+    G4LogicalVolume*
+        logicAbsorber0 = new G4LogicalVolume(solidAbsorber0,                                       // its solid
+                iron,                                             // its material
+                "ecal_absorber0");
+    new G4PVPlacement(0,
+    	    G4ThreeVector(0,0,absorberZ0/2.),
+	    logicAbsorber0,
+	    "ecal_absorber0",
+	    logicWorld,
+	    false,
+	    -1,
+	    checkOverlaps);
+*/
+
     G4Box*
         solidAbsorber = new G4Box("ecal_absorber",                                                  // its name
                 0.5*absorberXY, 0.5*absorberXY, 0.5*absorberZ);        // its size
