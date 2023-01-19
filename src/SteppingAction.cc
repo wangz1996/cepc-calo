@@ -82,6 +82,7 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
   G4int trackid = aStep->GetTrack()->GetTrackID();
   G4double time = aStep->GetPreStepPoint()->GetGlobalTime();
   G4String volumeName = aStep->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume()->GetName();
+  if(time > 150.)return;
 
   // check if we are in scoring volume
   // collect energy and track length step by step

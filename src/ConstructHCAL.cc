@@ -64,12 +64,13 @@ void DetectorConstruction::ConstructHCAL()
 	//std::cout<<"GetNuclearInterLength "<<PSD->GetNuclearInterLength()<<std::endl;
   G4Material* kevlar =
     G4NistManager::Instance()->FindOrBuildMaterial("G4_KAPTON");
-  G4double absorberZ0 = 2*mm;
-  G4double crystalXY = 4*cm;
-  G4double crystalZ = 3*mm;
-  G4double crystalPositionZ = (ecal_length + absorberZ0 + crystalZ/2.)*mm;
-  G4double PCBXY = 72*cm;
-  G4double PCBZ = 2*mm;
+  G4double absorberZ0 = 2.*mm;
+  G4double crystalXY = 4.*cm;
+  G4double crystalZ = 3.*mm;
+  G4double gap_psd_abs0 = 0.1 *mm;
+  G4double crystalPositionZ = (ecal_length + absorberZ0 + gap_psd_abs0 + crystalZ/2.)*mm;
+  G4double PCBXY = 72.*cm;
+  G4double PCBZ = 2.*mm;
   G4double absorberXY = PCBXY;
   G4double absorberZ = 20.*mm;
   G4double absorberPositionZ0=(ecal_length + absorberZ0/2.)*mm;
