@@ -88,10 +88,10 @@ void EventAction::EndOfEventAction(const G4Event* evt)
           << " :" + fDecayChain << G4endl;
   for(auto i:fHistoManager_Event->fParticleInfo.fecal_mape)
   {
-	//if(i.second<0.05)
-	//{
-	//	continue;
-	//}
+	if(i.second<0.1)
+	{
+		continue;
+	}
     fHistoManager_Event->fParticleInfo.fecal_cellid.emplace_back(i.first);
     fHistoManager_Event->fParticleInfo.fecal_celle.emplace_back(i.second);
 	int layer=i.first/210;
@@ -115,10 +115,10 @@ void EventAction::EndOfEventAction(const G4Event* evt)
   }
   for(auto i:fHistoManager_Event->fParticleInfo.fhcal_mape)
   {
-	//if(i.second<0.05)
-	//{
-	//	continue;
-	//}
+	if(i.second<0.1)
+	{
+		continue;
+	}
     fHistoManager_Event->fParticleInfo.fhcal_cellid.emplace_back(i.first);
     fHistoManager_Event->fParticleInfo.fhcal_celle.emplace_back(i.second);
 	double x = (i.first%10000)/100;
@@ -126,7 +126,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
     double layer = i.first/10000;
 	fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360. + (double(x)+0.5)*40.);
 	fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360. + (double(y)+0.5)*40.);
-	fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(300. + 1.5+layer*25.);
+	fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(1.5+layer*25.);
 
   }
 // G4cout<<"end of event "<<fHistoManager_Event->fParticleInfo.nTrack<<" "<<fHistoManager_Event->fParticleInfo.fTrackTime[0]<<G4endl;
@@ -181,7 +181,7 @@ void EventAction::AddHcalHit(const G4int &copyNo,const G4double &edep,const G4do
     double layer = copyNo/10000;
       fHistoManager_Event->fParticleInfo.fhcal_x.push_back(-360. + (double(x)+0.5)*40.);
       fHistoManager_Event->fParticleInfo.fhcal_y.push_back(-360. + (double(y)+0.5)*40.);
-      fHistoManager_Event->fParticleInfo.fhcal_z.push_back(300. + 1.5+layer*25.);
+      fHistoManager_Event->fParticleInfo.fhcal_z.push_back(1.5+layer*25.);
 	fHistoManager_Event->fParticleInfo.fhcal_mape[copyNo]+=edep;
 }
 
