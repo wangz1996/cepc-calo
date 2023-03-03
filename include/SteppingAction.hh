@@ -39,6 +39,8 @@
 
 #include "G4UserSteppingAction.hh"
 #include "globals.hh"
+#include "TMath.h"
+#include "TRandom.h"
 #include "HistoManager.hh"
 #include "G4GeneralParticleSource.hh"
 
@@ -72,6 +74,7 @@ public:
 private:
   static SteppingAction* fgInstance;
   G4LogicalVolume* fVolume;
+  Double_t SiPMDigi(const Double_t &edep) const;
   DetectorConstruction* fDetector;
   EventAction*          fEventAction_Step;  
     G4GeneralParticleSource * fGParticleSource;
