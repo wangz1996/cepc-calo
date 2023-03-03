@@ -61,7 +61,8 @@ void DetectorConstruction::ConstructHCAL()
   G4Material* iron =
     G4NistManager::Instance()->FindOrBuildMaterial("G4_Fe");
   G4Material* PSD =
-    G4NistManager::Instance()->FindOrBuildMaterial("G4_PLASTIC_SC_VINYLTOLUENE"); 
+    G4NistManager::Instance()->FindOrBuildMaterial("G4_PLASTIC_SC_VINYLTOLUENE");
+	PSD->GetIonisation()->SetBirksConstant(0.07943*mm/MeV); 
 	//std::cout<<"GetNuclearInterLength "<<PSD->GetNuclearInterLength()<<std::endl;
   G4Material* kevlar =
     G4NistManager::Instance()->FindOrBuildMaterial("G4_KAPTON");

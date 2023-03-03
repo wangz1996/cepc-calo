@@ -74,6 +74,7 @@ private:
   G4LogicalVolume* fVolume;
   DetectorConstruction* fDetector;
   EventAction*          fEventAction_Step;  
+  G4double BirksAttenuation(const G4Step* aStep);
     G4GeneralParticleSource * fGParticleSource;
     G4double kineticEn;
     G4String volume1;
