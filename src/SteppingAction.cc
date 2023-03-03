@@ -87,32 +87,14 @@ void SteppingAction::UserSteppingAction(const G4Step* aStep)
   // check if we are in scoring volume
   // collect energy and track length step by step
   //std::cout<<volumeName<<" "<<int(volumeName=="ecal_crystal")<<" "<<edep<<std::endl;
-  if(volumeName=="ecal_crystal") {  fEventAction_Step->AddEcalHit(copyNo,SiPMDigi(edep),time,pdgid,trackid); }
+  if(volumeName=="ecal_crystal") {  fEventAction_Step->AddEcalHit(copyNo,edep,time,pdgid,trackid); }
   if(volumeName=="hcal_psd") 
 	{ 
 		 //std::cout<<copyNo<<" pdg: "<<pdgid<<" track: "<<trackid<<" edep: "<<edep<<std::endl;
-		 fEventAction_Step->AddHcalHit(copyNo,SiPMDigi(edep),time,pdgid,trackid); 
+		 fEventAction_Step->AddHcalHit(copyNo,edep,time,pdgid,trackid); 
 	}
 }
 
-Double_t SteppingAction::SiPMDigi(const Double_t &edep) const
-{
-	Int_t sPix = 0;
-	sPix = gRandom->Poisson(edep / 0.466 * 20);
-	sPix = 7396.* (1 - TMath::Exp(-sPix / 7284.));
-	Double_t sChargeOutMean = sPix * 29.4;
-	Double_t sChargeOutSigma = sqrt(sPix * 5 * 5 + 3 * 3);
-	Double_t sChargeOut = -1;
-	while(sChargeOut < 0)
-		sChargeOut = gRandom->Gaus(sChargeOutMean, sChargeOutSigma);
-	Double_t sAdc = -1;
-	while(sAdc < 0)
-		sAdc = gRandom->Gaus(sChargeOut,.0002 * sChargeOut);
-	Double_t sMIP =sAdc / 29.4 / 20;
-	if (sMIP < 0.5)
-		return 0;
-	return sMIP * 0.466;
-}
  
 void SteppingAction::Reset()
 {

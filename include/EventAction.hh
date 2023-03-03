@@ -42,6 +42,8 @@
 #include "G4GeneralParticleSource.hh"
 #include "DetectorConstruction.hh"
 #include "Config.hh"
+#include "TMath.h"
+#include "TRandom.h"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -76,6 +78,7 @@ class EventAction : public G4UserEventAction
         //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
     private:
+		Double_t SiPMDigi(const Double_t &edep) const;
         G4double        fEventEdep;
         G4int           fPrintModulo;
         G4String        fDecayChain;                   

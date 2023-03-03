@@ -93,7 +93,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 		continue;
 	}
     fHistoManager_Event->fParticleInfo.fecal_cellid.emplace_back(i.first);
-    fHistoManager_Event->fParticleInfo.fecal_celle.emplace_back(i.second);
+    fHistoManager_Event->fParticleInfo.fecal_celle.emplace_back(SiPMDigi(i.second));
 	int layer=i.first/210;
 	int m=(i.first%210)/42;
 	int n=(i.first%210)%42;
@@ -120,7 +120,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 		continue;
 	}
     fHistoManager_Event->fParticleInfo.fhcal_cellid.emplace_back(i.first);
-    fHistoManager_Event->fParticleInfo.fhcal_celle.emplace_back(i.second);
+    fHistoManager_Event->fParticleInfo.fhcal_celle.emplace_back(SiPMDigi(i.second));
 	double x = (i.first%10000)/100;
     double y = (i.first%100);
     double layer = i.first/10000;
@@ -183,6 +183,24 @@ void EventAction::AddHcalHit(const G4int &copyNo,const G4double &edep,const G4do
       fHistoManager_Event->fParticleInfo.fhcal_y.push_back(-360. + (double(y)+0.5)*40.);
       fHistoManager_Event->fParticleInfo.fhcal_z.push_back(1.5+layer*25.);
 	fHistoManager_Event->fParticleInfo.fhcal_mape[copyNo]+=edep;
+}
+Double_t EventAction::SiPMDigi(const Double_t &edep) const
+{
+	Int_t sPix = 0;
+	sPix = gRandom->Poisson(edep / 0.466 * 20);
+	sPix = 7396.* (1 - TMath::Exp(-sPix / 7284.));
+	Double_t sChargeOutMean = sPix * 29.4;
+	Double_t sChargeOutSigma = sqrt(sPix * 5 * 5 + 3 * 3);
+	Double_t sChargeOut = -1;
+	while(sChargeOut < 0)
+		sChargeOut = gRandom->Gaus(sChargeOutMean, sChargeOutSigma);
+	Double_t sAdc = -1;
+	while(sAdc < 0)
+		sAdc = gRandom->Gaus(sChargeOut,.0002 * sChargeOut);
+	Double_t sMIP =sAdc / 29.4 / 20;
+	if (sMIP < 0.5)
+		return 0;
+	return sMIP * 0.466;
 }
 
 
