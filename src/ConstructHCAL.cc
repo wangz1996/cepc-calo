@@ -142,7 +142,7 @@ void DetectorConstruction::ConstructHCAL()
                       "hcal_psd",                                            // its name
                       logicWorld,                                           // its mother  volume
                       false,                                                // no boolean operation
-                      i_Layer*10000+i_X*100+i_Y,
+                      i_Layer*100000+i_X*100+i_Y,
                       checkOverlap);                                                   // copy number
       }
     }

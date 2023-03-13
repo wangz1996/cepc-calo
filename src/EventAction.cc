@@ -121,9 +121,9 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 	}
     fHistoManager_Event->fParticleInfo.fhcal_cellid.emplace_back(i.first);
     fHistoManager_Event->fParticleInfo.fhcal_celle.emplace_back(SiPMDigi(i.second));
-	double x = (i.first%10000)/100;
+	double x = (i.first%100000)/100;
     double y = (i.first%100);
-    double layer = i.first/10000;
+    double layer = i.first/100000;
 	fHistoManager_Event->fParticleInfo.fhcal_cellx.emplace_back(-360. + (double(x)+0.5)*40.);
 	fHistoManager_Event->fParticleInfo.fhcal_celly.emplace_back(-360. + (double(y)+0.5)*40.);
 	fHistoManager_Event->fParticleInfo.fhcal_cellz.emplace_back(1.5+layer*25.);
@@ -141,11 +141,11 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 
 void EventAction::AddEcalHit(const G4int &copyNo,const G4double &edep,const G4double &time,const G4int &pdgid,const G4int &trackid)
 {
-	fHistoManager_Event->fParticleInfo.fecal_psdid.emplace_back(copyNo);
-	fHistoManager_Event->fParticleInfo.fecal_energy.emplace_back(edep);
-	fHistoManager_Event->fParticleInfo.fecal_pdgid.emplace_back(pdgid);
-	fHistoManager_Event->fParticleInfo.fecal_trackid.emplace_back(trackid);
-	fHistoManager_Event->fParticleInfo.fecal_time.emplace_back(time);
+	//fHistoManager_Event->fParticleInfo.fecal_psdid.emplace_back(copyNo);
+	//fHistoManager_Event->fParticleInfo.fecal_energy.emplace_back(edep);
+	//fHistoManager_Event->fParticleInfo.fecal_pdgid.emplace_back(pdgid);
+	//fHistoManager_Event->fParticleInfo.fecal_trackid.emplace_back(trackid);
+	//fHistoManager_Event->fParticleInfo.fecal_time.emplace_back(time);
 /////////////////////////////////
 	
 	int layer=copyNo/210;
@@ -164,24 +164,24 @@ void EventAction::AddEcalHit(const G4int &copyNo,const G4double &edep,const G4do
 		y=-41.*5./2.+n*5.;
 	}
 	z=1.+layer*(2.+2.+2.8);
-	fHistoManager_Event->fParticleInfo.fecal_x.emplace_back(x);
-	fHistoManager_Event->fParticleInfo.fecal_y.emplace_back(y);
-	fHistoManager_Event->fParticleInfo.fecal_z.emplace_back(z);
+	//fHistoManager_Event->fParticleInfo.fecal_x.emplace_back(x);
+	//fHistoManager_Event->fParticleInfo.fecal_y.emplace_back(y);
+	//fHistoManager_Event->fParticleInfo.fecal_z.emplace_back(z);
 	fHistoManager_Event->fParticleInfo.fecal_mape[copyNo]+=edep;
 }
 void EventAction::AddHcalHit(const G4int &copyNo,const G4double &edep,const G4double &time,const G4int &pdgid,const G4int &trackid)
 {
-	fHistoManager_Event->fParticleInfo.fhcal_psdid.emplace_back(copyNo);
-	fHistoManager_Event->fParticleInfo.fhcal_energy.emplace_back(edep);
-	fHistoManager_Event->fParticleInfo.fhcal_pdgid.emplace_back(pdgid);
-	fHistoManager_Event->fParticleInfo.fhcal_trackid.emplace_back(trackid);
-	fHistoManager_Event->fParticleInfo.fhcal_time.emplace_back(time);
+	//fHistoManager_Event->fParticleInfo.fhcal_psdid.emplace_back(copyNo);
+	//fHistoManager_Event->fParticleInfo.fhcal_energy.emplace_back(edep);
+	//fHistoManager_Event->fParticleInfo.fhcal_pdgid.emplace_back(pdgid);
+	//fHistoManager_Event->fParticleInfo.fhcal_trackid.emplace_back(trackid);
+	//fHistoManager_Event->fParticleInfo.fhcal_time.emplace_back(time);
 	double x = (copyNo%10000)/100;
     double y = (copyNo%100);
     double layer = copyNo/10000;
-      fHistoManager_Event->fParticleInfo.fhcal_x.push_back(-360. + (double(x)+0.5)*40.);
-      fHistoManager_Event->fParticleInfo.fhcal_y.push_back(-360. + (double(y)+0.5)*40.);
-      fHistoManager_Event->fParticleInfo.fhcal_z.push_back(1.5+layer*25.);
+    //fHistoManager_Event->fParticleInfo.fhcal_x.push_back(-360. + (double(x)+0.5)*40.);
+    //fHistoManager_Event->fParticleInfo.fhcal_y.push_back(-360. + (double(y)+0.5)*40.);
+    //fHistoManager_Event->fParticleInfo.fhcal_z.push_back(1.5+layer*25.);
 	fHistoManager_Event->fParticleInfo.fhcal_mape[copyNo]+=edep;
 }
 Double_t EventAction::SiPMDigi(const Double_t &edep) const
